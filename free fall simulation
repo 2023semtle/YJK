@@ -1,0 +1,44 @@
+Web VPython 3.2
+from vpython import *
+
+
+# 그래픽 창 생성
+scene = canvas(title='자유낙하 운동', width=800, height=600, center=vector(0, 0, 0), background=color.white)
+
+
+# 바닥 생성
+floor = box(pos=vector(0, -5, 0), size=vector(30, 0.1, 30), color=color.green)
+#높이 입력
+high=float(input("구체1의 높이를 입력하세요"))
+high2=float(input("구체 2의 높이를 입력하세요"))
+
+# 물체 생성
+ball = sphere(pos=vector(-10, high, 0), radius=1, color=color.red,mass=20)
+ball2= sphere(pos=vector(10, high2, 0), radius=1, color=color.red,mass=20)
+#공기저항=0 이므로 질량값은 관계없음
+
+
+#구에 가해지는 중력 설정
+gravity=vector(0,-10,0)
+gravity2=vector(0,-10,0)
+velocity=vector(0,0,0)
+velocity2=vector(0,0,0)
+dt=0.01
+
+
+while True:
+    rate(100)
+    # 위치 업데이트
+    ball.pos+=velocity *dt
+    ball2.pos+=velocity2*dt
+    velocity+=gravity*dt
+    velocity2+=gravity2*dt
+    if ball.pos.y< floor.pos.y+ball.radius:
+        velocity=vector(0,0,0)
+        gravity=vector(0,0,0)
+        
+    if ball2.pos.y< floor.pos.y+ball2.radius:
+        velocity2=vector(0,0,0)
+        gravity2=vector(0,0,0)
+    
+
